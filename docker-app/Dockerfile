@@ -1,14 +1,8 @@
-# Use a base Python image
-FROM python:3.9-slim
+FROM openjdk:8-jdk-alpine
 
-# Set the working directory in the container
 WORKDIR /app
 
-# Copy files
-COPY . .
+# Copy only the packaged jar file
+COPY target/*.jar app.jar
 
-# Install dependencies (optional if app.py uses Flask, etc.)
-RUN pip install flask
-
-# Set the command to run the app
-CMD ["python", "app.py"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
